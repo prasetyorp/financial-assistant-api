@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request
-import os
 import psycopg2
+import os
+
 
 
 app = FastAPI()

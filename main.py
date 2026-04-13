@@ -1,7 +1,28 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+import os
+import psycopg2
+
 
 app = FastAPI()
 
+# 🔹 DB connection function
+def get_connection():
+    return psycopg2.connect(
+        os.getenv("DB_URL"),
+        sslmode="require"
+    )
+
+# 🔹 Test endpoint
+@app.get("/test-db")
+def test_db():
+    try:
+        conn = get_connection()
+        conn.close()
+        return {"status": "DB connected ✅"}
+    except Exception as e:
+        return {"error": str(e)}
+
+# 🔹 Root endpoint
 @app.get("/")
 def root():
-    return {"message": "API is running boy!!!!"}
+    return {"message": "API is running 🚀"}

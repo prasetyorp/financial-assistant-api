@@ -9,7 +9,11 @@ app = FastAPI()
 # 🔹 DB connection function
 def get_connection():
     return psycopg2.connect(
-        os.getenv("DB_URL"),
+        host=os.getenv("DB_HOST"),  # e.g., "db.xtotgobiapzsupkydvpc.supabase.co"
+        port=os.getenv("DB_PORT", "5432"),
+        database=os.getenv("DB_NAME"),  # e.g., "postgres"
+        user=os.getenv("DB_USER"),  # e.g., "postgres"
+        password=os.getenv("DB_PASSWORD"),
         sslmode="require",
         options="-c search_path=ryanhanna"
     )
